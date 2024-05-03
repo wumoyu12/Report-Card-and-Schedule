@@ -1,0 +1,43 @@
+def Menu():
+    global opption
+    opption = str(input("1.Add new student\n2.Check information\n3.C"))
+    CheckOpption()
+    
+    match opption:
+        case opption if int(opption) == 1:
+            Add()
+        case opption if int(opption) == 2:
+            CheckInfo()
+        case opption if int(opption) == 3:
+            Change()
+            
+def CheckOpption():
+    opptionlen = len(opption)
+    if opptionlen != 1:
+        print("Invalid")
+        Menu()
+    else:
+        ordopption = ord(opption)
+        opptionlist = list(opption)
+        for i in range(0,len(opption)):
+            newnum = ord(opptionlist[i])
+            if (newnum < 49 or newnum > 51):
+                print("Invalid")
+                Menu()
+    
+def Add():
+    print("A")
+
+def CheckInfo():
+    print("B")
+    
+def Change():
+    print("C")
+    
+    
+def main():
+    print("Welcome")
+    Menu()
+    
+if __name__ == "__main__":
+    main()
