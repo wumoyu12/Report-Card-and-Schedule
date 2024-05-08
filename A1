@@ -55,12 +55,26 @@ def Checkfile():
 def Add():
     if (ifexists == False):
         print("Created successfully, please enter the student information.")
+        Askfname()
+        Askmname()
+        Asklname()
     else:
         print("This student has already been added.")
         print("The following is the student's information:")
         pythfile = open(filename, "r")
         print(pythfile.read())
         pythfile.close()
+        
+def Askfname():
+    fname = str(input("Enter the student's first name."))
+    Checkname(fname)
+    
+def Askmname():
+    
+def Asklname():
+
+def Checkname(name):
+    
         
 def CheckInfo():
     if (ifexists == True):
