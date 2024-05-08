@@ -1,43 +1,87 @@
+import os.path
+from os import path
+
 def Menu():
-    global opption
-    opption = str(input("1.Add new student\n2.Check information\n3.C"))
-    CheckOpption()
+    global option
+    option = str(input("1.Add New Student\n2.Check Information\n3.Modify/Delete Information"))
+    CheckOption()
+    AskID()
     
-    match opption:
-        case opption if int(opption) == 1:
+    match option:
+        case option if int(option) == 1:
             Add()
-        case opption if int(opption) == 2:
+        case option if int(option) == 2:
             CheckInfo()
-        case opption if int(opption) == 3:
+        case option if int(option) == 3:
             Change()
             
-def CheckOpption():
-    opptionlen = len(opption)
-    if opptionlen != 1:
+def CheckOption():
+    optionlen = len(option)
+    if optionlen != 1:
         print("Invalid")
         Menu()
     else:
-        ordopption = ord(opption)
-        opptionlist = list(opption)
-        for i in range(0,len(opption)):
-            newnum = ord(opptionlist[i])
+        ordoption = ord(option)
+        optionlist = list(option)
+        for i in range(0,len(option)):
+            newnum = ord(optionlist[i])
             if (newnum < 49 or newnum > 51):
                 print("Invalid")
                 Menu()
     
-def Add():
-    print("A")
+def AskID():
+    global ID, filename
+    ID = str(input("Please enter student ID:"))
+    CheckID()
+    filename = ID + ".txt"
+    Checkfile()
 
+def CheckID():
+    IDlen = len(ID)
+    if IDlen != 9:
+        print("Invalid")
+        AskID()
+    else:
+        for i in range(0,len(ID)):
+            newnum = ord(ID[i])
+            if (newnum < 48 or newnum > 57):
+                print("Invalid")
+                AskID()
+                
+def Checkfile():
+    global ifexists
+    ifexists = bool(path.exists(filename))
+    
+def Add():
+    if (ifexists == False):
+        print("Created successfully, please enter the student information.")
+    else:
+        print("This student has already been added.")
+        print("The following is the student's information:")
+        pythfile = open(filename, "r")
+        print(pythfile.read())
+        pythfile.close()
+        
 def CheckInfo():
-    print("B")
-    
+    if (ifexists == True):
+        print("The following is the student's information:")
+        pythfile = open(filename, "r")
+        print(pythfile.read())
+        pythfile.close()
+    else:
+        print("")
+
 def Change():
-    print("C")
-    
-    
+    if (ifexists == True):
+        print("The following is the student's information:")
+        pythfile = open(filename, "r")
+        print(pythfile.read())
+        pythfile.close()
+    else:
+        print("")
+  
 def main():
-    print("Welcome")
     Menu()
-    
+
 if __name__ == "__main__":
     main()
