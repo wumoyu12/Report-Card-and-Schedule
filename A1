@@ -1,3 +1,6 @@
+import os.path
+from os import path
+
 def Menu():
     global option
     option = str(input("1.Add New Student\n2.Check Information\n3.Modify/Delete Information"))
@@ -82,10 +85,12 @@ def Checkfname():
     namelen = len(fname)
     if namelen == 0:
         print("Invalid")
+        Askfname()
     else:
         namelist = list(fname)
-        for i in range (0, namelist):
+        for i in range (0, namelen):
             newname = ord(namelist[i])
+            print (newname)
             if newname < 65 or newname > 90:
                 print("Invalid")
                 Askfname()
@@ -94,9 +99,10 @@ def Checklname():
     namelen = len(lname)
     if namelen == 0:
         print("Invalid")
+        Asklname()
     else:
         namelist = list(lname)
-        for i in range (0, namelist):
+        for i in range (0, namelen):
             newname = ord(namelist[i])
             if newname < 65 or newname > 90:
                 print("Invalid")
