@@ -1,6 +1,3 @@
-import os.path
-from os import path
-
 def Menu():
     global option
     option = str(input("1.Add New Student\n2.Check Information\n3.Modify/Delete Information"))
@@ -55,9 +52,7 @@ def Checkfile():
 def Add():
     if (ifexists == False):
         print("Created successfully, please enter the student information.")
-        Askfname()
-        Askmname()
-        Asklname()
+        Askname()
     else:
         print("This student has already been added.")
         print("The following is the student's information:")
@@ -65,16 +60,47 @@ def Add():
         print(pythfile.read())
         pythfile.close()
         
+def Askname():
+    global fullname
+    Askfname()
+    Asklname()
+    
+    fullname = lname + fname
+    
 def Askfname():
+    global fname
     fname = str(input("Enter the student's first name."))
-    Checkname(fname)
-    
-def Askmname():
-    
+    Checkfname()
+     
 def Asklname():
-
-def Checkname(name):
+    global lname
+    lname = str(input("Enter the student's last name."))
+    Checklname()
     
+
+def Checkfname():
+    namelen = len(fname)
+    if namelen == 0:
+        print("Invalid")
+    else:
+        namelist = list(fname)
+        for i in range (0, namelist):
+            newname = ord(namelist[i])
+            if newname < 65 or newname > 90:
+                print("Invalid")
+                Askfname()
+                
+def Checklname():
+    namelen = len(lname)
+    if namelen == 0:
+        print("Invalid")
+    else:
+        namelist = list(lname)
+        for i in range (0, namelist):
+            newname = ord(namelist[i])
+            if newname < 65 or newname > 90:
+                print("Invalid")
+                Asklname()
         
 def CheckInfo():
     if (ifexists == True):
