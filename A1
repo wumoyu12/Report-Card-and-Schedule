@@ -172,24 +172,25 @@ def Checkdays():
                 AskCourse()
         
 def MonCourse():
-    
+    print("Mon")
 
 def TuesCourse():
-    
+    print("Tues")
 
 def WedCourse():
-    
+    print("Wed")
 
 def ThurCourse():
-
+    print("Thur")
 
 def FriCourse():
-
+    print("Fri")
     
 def SatCourse():
-    
+    print("Sat")
 
 def SunCourse():
+    print("Sun")
     
 
 def CheckInfo():
