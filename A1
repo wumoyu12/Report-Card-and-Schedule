@@ -55,7 +55,7 @@ def Checkfile():
 def Add():
     if (ifexists == False):
         print("Created successfully, please enter the student information.")
-        Askname()
+        AskInfo()
     else:
         print("This student has already been added.")
         print("The following is the student's information:")
@@ -63,51 +63,135 @@ def Add():
         print(pythfile.read())
         pythfile.close()
         
-def Askname():
+def AskInfo():
+    AskName()
+    AskCourse()
+        
+def AskName():
     global fullname
-    Askfname()
-    Asklname()
+    AskFName()
+    AskLName()
     
-    fullname = lname + fname
+    fullname = lname + " " + fname
     
-def Askfname():
+def AskFName():
     global fname
     fname = str(input("Enter the student's first name."))
+    fname = fname.upper()
     Checkfname()
+    fname = fname.capitalize()
      
-def Asklname():
+def AskLName():
     global lname
     lname = str(input("Enter the student's last name."))
+    lname = lname.upper()
     Checklname()
+    lname = lname.capitalize()
     
 
 def Checkfname():
     namelen = len(fname)
     if namelen == 0:
         print("Invalid")
-        Askfname()
+        AskFName()
     else:
         namelist = list(fname)
         for i in range (0, namelen):
             newname = ord(namelist[i])
-            print (newname)
             if newname < 65 or newname > 90:
                 print("Invalid")
-                Askfname()
+                AskFName()
                 
 def Checklname():
     namelen = len(lname)
     if namelen == 0:
         print("Invalid")
-        Asklname()
+        AskLName()
     else:
         namelist = list(lname)
         for i in range (0, namelen):
             newname = ord(namelist[i])
             if newname < 65 or newname > 90:
                 print("Invalid")
-                Asklname()
+                AskLName()
+                
+def AskCourse():
+    global howmany, days, Days
+    howmany = str(input("How many days a week do students have classes?"))
+    Checkhowmany()
+    Askdays
+
+def Askdays():
+    global days
+    count = int(howmany)
+    while count == 0:
+        days = str(input("On what days of the week do student have classes(Please enter one at time)?\n1-Mon 2-Tues 3-Wed 4-Thur 5-Fri 6-Sat 7-Sun"))
+        Checkdays()
+        count = count - 1
+    
+        match days:
+            case days if int(days) == 1:
+                MonCourse()
+            case days if int(days) == 2:
+                TuesCourse()
+            case days if int(days) == 3:
+                WedCourse()
+            case days if int(days) == 4:
+                ThurCourse()
+            case days if int(days) == 5:
+                FriCourse()
+            case days if int(days) == 6:
+                SatCourse()
+            case days if int(days) == 7:
+                SunCourse()
         
+def Checkhowmany():
+    numlen = len(howmany)
+    if numlen != 1:
+        print("Enter a valid number!")
+        AskCourse()
+    else:
+        numlist = list(howmany)
+        for i in range(0,len(numlist)):
+            newnum = ord(numlist[i])
+            if (newnum < 49 or newnum > 55):
+                print("Invalid(only numbers 1-7)")
+                AskCourse()
+
+def Checkdays():
+    dayslen = len(days)
+    if dayslen != 1:
+        print("Enter a valid number!")
+        AskCourse()
+    else:
+        dayslist = list(days)
+        for i in range(0,len(dayslist)):
+            newdays = ord(dayslist[i])
+            if (newdays < 49 or newdays > 55):
+                print("Invalid(only numbers 1-7)")
+                AskCourse()
+        
+def MonCourse():
+    
+
+def TuesCourse():
+    
+
+def WedCourse():
+    
+
+def ThurCourse():
+
+
+def FriCourse():
+
+    
+def SatCourse():
+    
+
+def SunCourse():
+    
+
 def CheckInfo():
     if (ifexists == True):
         print("The following is the student's information:")
