@@ -1,0 +1,188 @@
+    global askgrade
+    
+    match askgrade:
+        case askgrade if int(askgrade) == 1:
+            print("I am in ninth grade")
+        case askgrade if int(askgrade) == 2:
+            print("I am in tenth grade")
+        case askgrade if int(askgrade) == 3:
+            print("I am in  eleventh grade")
+        case askgrade if int(askgrade) == 4:
+            print("I am in twelfth grade")    
+        
+
+def AskCourse():
+    global howmany, days, Days
+    howmany = str(input("How many days a week do students have classes?"))
+    Checkhowmany()
+    Askdays()
+
+def Askdays():
+    global days
+    count = int(howmany)
+    while count == 0:
+        days = str(input("On what days of the week do student have classes(Please enter one at time)?\n1-Mon 2-Tues 3-Wed 4-Thur 5-Fri "))
+        Checkdays()
+        count = count - 1
+
+        match days:
+            case days if int(days) == 1:
+                MonCourse()
+            case days if int(days) == 2:
+                TuesCourse()
+            case days if int(days) == 3:
+                WedCourse()
+            case days if int(days) == 4:
+                ThurCourse()
+            case days if int(days) == 5:
+                FriCourse()
+
+
+def Checkhowmany():
+    numlen = len(howmany)
+    if numlen != 1:
+        print("Enter a valid number!")
+        AskCourse()
+    else:
+        numlist = list(howmany)
+        for i in range(0,len(numlist)):
+            newnum = ord(numlist[i])
+            if (newnum < 49 or newnum > 53):
+                print("Invalid(only numbers 1-5)")
+        AskCourse()
+
+def MonCourse():
+    print("What is your first period class?")
+    
+    Mon = 
+    
+    print("What is your second period class?")
+    
+    print("What is your third period class?")
+    
+    print("What is your  fourth period class?")
+    
+    print("What is your fifth period class?")
+
+    print("What is your sixth period class?")
+
+    print("What is your seventh period class?")
+      
+    print("What is your eighth period class?")
+
+def TuesCourse():
+    print("What is your first period class?")
+    Tues = 
+    
+    print("What is your second period class?")
+    
+    print("What is your third period class?")
+    
+    print("What is your  fourth period class?")
+    
+    print("What is your fifth period class?")
+
+    print("What is your sixth period class?")
+      
+    print("What is your seventh period class?")
+      
+    print("What is your eighth period class?")
+
+def WedCourse():
+    print("What is your first period class?")
+    Wed = 
+    
+    print("What is your second period class?")
+    
+    print("What is your third period class?")
+    
+    print("What is your  fourth period class?")
+    
+    print("What is your fifth period class?")
+
+    print("What is your sixth period class?")
+    
+    print("What is your seventh period class?")
+print("What is your eighth period class?")
+    
+
+def ThurCourse():
+    print("What is your first period class?")
+    Thurs = 
+    
+    print("What is your second period class?")
+    
+    print("What is your third period class?")
+    
+    print("What is your  fourth period class?")
+    
+    print("What is your fifth period class?")
+    
+    print("What is your sixth period class?")
+    
+    print("What is your seventh period class?")
+
+    print("What is your eighth period class?")
+    
+
+def FriCourse():
+   print("What is your first period class?")
+    Fri = 
+    
+    print("What is your second period class?")
+    
+    print("What is your third period class?")
+    
+    print("What is your  fourth period class?")
+
+    print("What is your fifth period class?")
+
+    print("What is your sixth period class?")
+
+    print("What is your seventh period class?")
+
+    print("What is your eighth period class?")
+    
+
+
+def Checkdays():
+    dayslen = len(days)
+    if dayslen != 1:
+        print("Enter a valid number!")
+        AskCourse()
+    else:
+        dayslist = list(days)
+    for i in range(0,len(days)):
+            newdays = ord(days[i])
+            if (newdays < 49 or newdays > 53):
+                print("Invalid(only numbers 1- 5)")
+                AskCourse()def CheckInfo():
+    if (ifexists == True):
+        print("The following is the student's information:")
+        pythfile = open(filename, "r")
+        print(pythfile.read())
+        pythfile.close()
+    else:
+        print("")
+
+
+
+def Change():
+    if (ifexists == True):
+        print("The following is the student's information:")
+        pythfile = open(filename, "r")
+        print(pythfile.read())
+        pythfile.close()
+    else:
+        print("Would you like to remove the information: ")
+        print("")
+        pythfile, "r+"
+        pythfile.truncate();
+
+def main():
+    Menu()
+
+if __name__ == "__main__":
+    main()
+
+        
