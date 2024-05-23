@@ -4,9 +4,8 @@ from os import path
 def Menu():
     global option
     option = str(input("1.Add New Student\n2.Check Information\n3.Modify/Delete Information"))
-    CheckOption()
-    AskID()
-    
+    Checkoption()
+
     match option:
         case option if int(option) == 1:
             Add()
@@ -14,8 +13,8 @@ def Menu():
             CheckInfo()
         case option if int(option) == 3:
             Change()
-            
-def CheckOption():
+
+def Checkoption():
     optionlen = len(option)
     if optionlen != 1:
         print("Invalid")
@@ -28,7 +27,6 @@ def CheckOption():
             if (newnum < 49 or newnum > 51):
                 print("Invalid")
                 Menu()
-    
 def AskID():
     global ID, filename
     ID = str(input("Please enter student ID:"))
@@ -47,170 +45,206 @@ def CheckID():
             if (newnum < 48 or newnum > 57):
                 print("Invalid")
                 AskID()
-                
+
 def Checkfile():
     global ifexists
     ifexists = bool(path.exists(filename))
-    
+
 def Add():
-    if (ifexists == False):
-        print("Created successfully, please enter the student information.")
-        AskInfo()
+    AskID()
+    if ifexists == False:
+        Askname()
+        ScheAndReportC()
     else:
         print("This student has already been added.")
         print("The following is the student's information:")
-        pythfile = open(filename, "r")
-        print(pythfile.read())
-        pythfile.close()
-        
-def AskInfo():
-    AskName()
-    AskCourse()
-        
-def AskName():
+        CheckInfo()
+
+def Askname():
     global fullname
-    AskFName()
-    AskLName()
-    
-    fullname = lname + " " + fname
-    
-def AskFName():
-    global fname
+    Askfname()
+    Asklname()
+    fullname = fname + " " + lname
+    print(fullname)
+
+def Askfname():
+    global fname, ifcorrect
     fname = str(input("Enter the student's first name."))
     fname = fname.upper()
-    Checkfname()
-    fname = fname.capitalize()
-     
-def AskLName():
-    global lname
+    ifcorrect = fname
+    Checkname(fname)
+    #Back !
+    if ifcorrect == "false":
+        Askfname()
+    else:
+        fname = fname.capitalize()
+
+def Asklname():
+    global lname, ifcorrect
     lname = str(input("Enter the student's last name."))
     lname = lname.upper()
-    Checklname()
-    lname = lname.capitalize()
-    
+    ifcorrect = fname
+    Checkname(lname)
+    #Back !
+    if ifcorrect == "false":
+        Asklname()
+    else:
+        lname = lname.capitalize()
 
-def Checkfname():
-    namelen = len(fname)
+def Checkname(name):
+    namelen = len(name)
     if namelen == 0:
         print("Invalid")
-        AskFName()
+        #Back to Askname
+        ifcorrect == "false"
+        return ifcorrect
     else:
-        namelist = list(fname)
+        namelist = list(name)
         for i in range (0, namelen):
             newname = ord(namelist[i])
             if newname < 65 or newname > 90:
                 print("Invalid")
-                AskFName()
-                
-def Checklname():
-    namelen = len(lname)
-    if namelen == 0:
-        print("Invalid")
-        AskLName()
-    else:
-        namelist = list(lname)
-        for i in range (0, namelen):
-            newname = ord(namelist[i])
-            if newname < 65 or newname > 90:
-                print("Invalid")
-                AskLName()
-                
-def AskCourse():
-    global howmany, days, Days
-    howmany = str(input("How many days a week do students have classes?"))
+                #Back to Askname
+                ifcorrect == "false"
+                return ifcorrect
+
+def ScheAndReportC():
+    global addoption
+    addoption = str(input("Do you like add Schedule(Enter 1) or Report Card(Enter 2)."))
+    CheckAddOption()
+
+    match addoption:
+        case addoption if int(option) == 1:
+            Schedule()
+        case addoption if int(option) == 2:
+            ReportCard()
+
+def ReportCard():
+    global howmany, CourseList, GradeList
+    howmany = str(input("How many course do you want to enter(Maximum 8 courses)?"))
     Checkhowmany()
-    Askdays
-
-def Askdays():
-    global days
     count = int(howmany)
-    while count == 0:
-        days = str(input("On what days of the week do student have classes(Please enter one at time)?\n1-Mon 2-Tues 3-Wed 4-Thur 5-Fri 6-Sat 7-Sun"))
-        Checkdays()
-        count = count - 1
+    CourseList = []
+    GradeList = []
+    while count != 0:
+        AskCourse()
+        Askgrade()
+
+def AskCourse():
+    global course
+    course = str(input("Enter the course name."))
+    Checkcourse()
+    CourseList.append(course)
+
+def Checkcourse():
+    courselen = len(course)
+    if courselen == 0:
+        print("Invalid")
+        AskCourse()
+    else:
+        courselist = list(course)
+        for i in range (0, courselen):
+            newcourse = ord(courselist[i])
+            if newcourse < 65 or newcourse > 90:
+                print("Invalid")
+                AskCourse()
+
+def Askgrade():
+    global grade 
+    grade = str(input("Enter the grade."))
+    Checkgrade()
+
+def Checkgrade():
+    gradelen = len(grade)
+    if gradelen == 0 or gradelen >= 4:
+        print("Invalid")
+        Askgrade()
+    else:
+        for i in range (0, gradelen):
+            newnum = ord(grade[i])
+            if (newnum < 48 or newnum > 57):
+                print("Invalid")
+                Askgrade()
     
-        match days:
-            case days if int(days) == 1:
-                MonCourse()
-            case days if int(days) == 2:
-                TuesCourse()
-            case days if int(days) == 3:
-                WedCourse()
-            case days if int(days) == 4:
-                ThurCourse()
-            case days if int(days) == 5:
-                FriCourse()
-            case days if int(days) == 6:
-                SatCourse()
-            case days if int(days) == 7:
-                SunCourse()
-        
+
 def Checkhowmany():
-    numlen = len(howmany)
+    howmanylen = len(howmany)
+    if howmanylen != 1:
+        print("Invalid")
+        ReportCard()
+    else:
+        ordoption = ord(howmany)
+        howmanylist = list(howmany)
+        for i in range(0,len(howmany)):
+            newnum = ord(howmanylist[i])
+            if (newnum < 49 or newnum > 56):
+                print("Invalid")
+                ReportCard()
+    
+def CheckAddOption():
+    numlen = len(addoption)
     if numlen != 1:
-        print("Enter a valid number!")
-        AskCourse()
+        print("invalid")
+        ScheAndReportC()
     else:
-        numlist = list(howmany)
-        for i in range(0,len(numlist)):
-            newnum = ord(numlist[i])
-            if (newnum < 49 or newnum > 55):
-                print("Invalid(only numbers 1-7)")
-                AskCourse()
-
-def Checkdays():
-    dayslen = len(days)
-    if dayslen != 1:
-        print("Enter a valid number!")
-        AskCourse()
-    else:
-        dayslist = list(days)
-        for i in range(0,len(dayslist)):
-            newdays = ord(dayslist[i])
-            if (newdays < 49 or newdays > 55):
-                print("Invalid(only numbers 1-7)")
-                AskCourse()
-        
-def MonCourse():
-    print("Mon")
-
-def TuesCourse():
-    print("Tues")
-
-def WedCourse():
-    print("Wed")
-
-def ThurCourse():
-    print("Thur")
-
-def FriCourse():
-    print("Fri")
-    
-def SatCourse():
-    print("Sat")
-
-def SunCourse():
-    print("Sun")
-    
+        ordoption = ord(option)
+        optionlist = list(option)
+        for i in range(0,len(option)):
+            newnum = ord(optionlist[i])
+            if (newnum < 49 or newnum > 50):
+                print("Invalid")
+                ScheAndReportC()
 
 def CheckInfo():
-    if (ifexists == True):
-        print("The following is the student's information:")
+    AskID()
+    if ifexists == True:
         pythfile = open(filename, "r")
         print(pythfile.read())
         pythfile.close()
     else:
-        print("")
+        print("This student has not been added.")
+        Menu()
+
 
 def Change():
-    if (ifexists == True):
-        print("The following is the student's information:")
+    global choice
+    AskID()
+    if ifexists == True:
         pythfile = open(filename, "r")
         print(pythfile.read())
         pythfile.close()
+        choice = str(input("1.Modify\n2.Delete all information about this student"))
+        Checkchoice()
     else:
-        print("")
-  
+        print("This student has not been added.")
+        Menu()
+
+    match choice:
+        case option if int(option) == 1:
+            Modify()
+        case option if int(option) == 2:
+            Delete()
+
+def Modify():
+    print("Modify")
+
+def Delete():
+    os.remove(filename)
+
+def Checkchoice():
+    choicelen = len(choice)
+    if choicelen != 1:
+        print("Invalid")
+        Change()
+    else:
+        ordoption = ord(choice)
+        choicelist = list(choice)
+        for i in range(0,len(choice)):
+            newnum = ord(choicelist[i])
+            if (newnum < 49 or newnum > 50):
+                print("Invalid")
+                Change()
+
 def main():
     Menu()
 
